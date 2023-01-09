@@ -27,7 +27,7 @@ function cuenta(monto, porcentajeLunes) {
     return (monto * porcentajeLunes)
 }
 
-function descuento(dia) {
+function reintegro(dia) {
     dia = prompt("Ingrese un dia de la semana (sin mayusculas), pulse 0 para salir")
     while (dia != 0) {
 
@@ -73,7 +73,7 @@ function descuento(dia) {
                 break;
 
             case "sabado": case "domingo":
-                alert("No Aplica descuento")
+                alert("No Aplica reintegro")
                 break;
 
             default:
@@ -85,4 +85,4 @@ function descuento(dia) {
 }
 
 informacion();
-descuento();
+reintegro();
