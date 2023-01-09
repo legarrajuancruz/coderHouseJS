@@ -6,35 +6,46 @@ const porcentajeViernes = 0.030;
 let dia = 0;
 let monto = 0;
 let reintegro = 0;
-
-
+let nombreUsuario = "";
+let apellidoUsuario = "";
 
 function informacion() {
-    alert("Bienvenido a CUENTA DNI")
-    alert("Sistema de reintegros mes de Enero")
+    alert("Bienvenido a CUENTA DNI \n Sistema de reintegros mes de Enero")
     let nombre = prompt("Ingrese nombre de usuario");
     let apellido = prompt("Ingrese su apellido");
     if (nombre != "" && apellido != "") {
         alert("Hola " + nombre + " " + apellido);
+        nombreUsuario = nombre;
+        apellidoUsuario = apellido;
 
     }
+    else if (nombre == "" && apellido != "") {
+        alert("Hola " + apellido);
+
+    }
+    else if (nombre != "" && apellido == "") {
+        alert("Hola " + nombre);
+
+    }
+
     else {
         alert("Usuario no registrado");
     }
 }
+alert(nombreUsuario);
 
 function cuenta(monto, porcentajeLunes) {
     return (monto * porcentajeLunes)
 }
 
-function reintegro(dia) {
+function devolucion(dia) {
     dia = prompt("Ingrese un dia de la semana (sin mayusculas), pulse 0 para salir")
     while (dia != 0) {
 
         switch (dia) {
-            case "lunes": case 1:
+            case "lunes":
                 monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
-
+                
                 reintegro = cuenta(monto, porcentajeLunes)
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeLunes * 100) + "%")
                 alert("Usted ingreso $ " + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
@@ -84,5 +95,18 @@ function reintegro(dia) {
     }
 }
 
+function despedida() {
+    alert("Gracias por utilizar Cuenta DNI")
+
+    if (nombreUsuario != "" && apellidoUsuario != "") {
+        alert("Volve pronto " + nombreUsuario + " " + apellidoUsuario);
+    }
+
+    else {
+        alert("Volve pronto");
+    }
+}
+
 informacion();
-reintegro();
+devolucion();
+despedida()
