@@ -17,17 +17,13 @@ function informacion() {
         alert("Hola " + nombre + " " + apellido);
         nombreUsuario = nombre;
         apellidoUsuario = apellido;
-
     }
     else if (nombre == "" && apellido != "") {
         alert("Hola " + apellido);
-
     }
     else if (nombre != "" && apellido == "") {
         alert("Hola " + nombre);
-
     }
-
     else {
         alert("Usuario no registrado");
     }
@@ -38,16 +34,21 @@ function cuenta(monto, porcentajeLunes) {
     return (monto * porcentajeLunes)
 }
 
+function ingresoMonto() {
+    monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
+    while (isNaN(monto) || (typeof monto != "number")) {
+        monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
+
+    } return monto;
+}
+
 function devolucion(dia) {
     dia = prompt("Ingrese un dia de la semana (sin mayusculas), pulse 0 para salir")
     while (dia != 0) {
 
         switch (dia) {
             case "lunes":
-                monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
-                while (isNaN(monto) || (typeof monto != "number")) {
-                    monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
-                }
+                ingresoMonto()
 
                 reintegro = cuenta(monto, porcentajeLunes)
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeLunes * 100) + "%")
@@ -55,11 +56,7 @@ function devolucion(dia) {
                 break;
 
             case "martes":
-                monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
-                while (isNaN(monto) || (typeof monto != "number")) {
-                    monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
-
-                }
+                ingresoMonto()
 
                 reintegro = cuenta(monto, porcentajeMartes);
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeMartes * 100) + "%")
@@ -67,11 +64,7 @@ function devolucion(dia) {
                 break;
 
             case "miercoles":
-                monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
-                while (isNaN(monto) || (typeof monto != "number")) {
-                    monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
-
-                }
+                ingresoMonto()
 
                 reintegro = cuenta(monto, porcentajeMiercoles);
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeMiercoles * 100) + "%")
@@ -79,11 +72,7 @@ function devolucion(dia) {
                 break;
 
             case "jueves":
-                monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
-                while (isNaN(monto) || (typeof monto != "number")) {
-                    monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
-
-                }
+                ingresoMonto()
 
                 reintegro = cuenta(monto, porcentajeJueves);
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeJueves * 100) + "%")
@@ -91,11 +80,7 @@ function devolucion(dia) {
                 break;
 
             case "viernes":
-                monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
-                while (isNaN(monto) || (typeof monto != "number")) {
-                    monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
-
-                }
+                ingresoMonto()
 
                 reintegro = cuenta(monto, porcentajeViernes);
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeViernes * 100) + "%")
