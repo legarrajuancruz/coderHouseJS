@@ -45,7 +45,10 @@ function devolucion(dia) {
         switch (dia) {
             case "lunes":
                 monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
-                
+                while (isNaN(monto) || (typeof monto != "number")) {
+                    monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
+                }
+
                 reintegro = cuenta(monto, porcentajeLunes)
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeLunes * 100) + "%")
                 alert("Usted ingreso $ " + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
@@ -53,6 +56,10 @@ function devolucion(dia) {
 
             case "martes":
                 monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
+                while (isNaN(monto) || (typeof monto != "number")) {
+                    monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
+
+                }
 
                 reintegro = cuenta(monto, porcentajeMartes);
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeMartes * 100) + "%")
@@ -61,6 +68,10 @@ function devolucion(dia) {
 
             case "miercoles":
                 monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
+                while (isNaN(monto) || (typeof monto != "number")) {
+                    monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
+
+                }
 
                 reintegro = cuenta(monto, porcentajeMiercoles);
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeMiercoles * 100) + "%")
@@ -69,6 +80,10 @@ function devolucion(dia) {
 
             case "jueves":
                 monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
+                while (isNaN(monto) || (typeof monto != "number")) {
+                    monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
+
+                }
 
                 reintegro = cuenta(monto, porcentajeJueves);
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeJueves * 100) + "%")
@@ -77,6 +92,10 @@ function devolucion(dia) {
 
             case "viernes":
                 monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
+                while (isNaN(monto) || (typeof monto != "number")) {
+                    monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
+
+                }
 
                 reintegro = cuenta(monto, porcentajeViernes);
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeViernes * 100) + "%")
