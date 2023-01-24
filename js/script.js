@@ -11,6 +11,7 @@ let dia = 0;
 let monto = 0;
 let reintegro = 0;
 let lobby = 0;
+let precio = 0;
 
 
 ////////////////////////////////////////  DESARROLLO CONSTRUCTOR DE OBJETOS  ////////////////////////////////////////////////
@@ -42,6 +43,7 @@ class compras {
         this.precio = parseInt(this.precio * 1.21);
     }
 }
+
 ////////////////////////////////////////  DESARROLLO ARREGLO CON OBJETOS  ////////////////////////////////////////////////
 
 const baseDatos = []
@@ -168,7 +170,32 @@ function devolucion(dia) {
     }
 }
 
-////////////////////////////////////////  DESPEDIDA  ////////////////////////////////////////////////
+const mercado = [];
+
+let cantidadProductos = 3;
+
+function ingresarNumero() {
+    precio = parseFloat(prompt("Ingrese precio del producto"));
+
+    while (isNaN(precio) || (typeof precio != "number")) {
+        precio = parseFloat(prompt("Ingrese precio del producto"));
+    }
+    return precio
+}
+
+for (let i = 0; i < cantidadProductos; i++) {
+    mercado[i];
+    mercado.push(new compras(
+        producto = prompt("Ingrese Producto"),
+        precio = ingresarNumero(),
+    )
+    )
+    for (let iva of mercado) {
+        iva.sumarIva()
+    }
+}
+
+devolucion();
 
 function despedida(baseDatos) {
     let i = 0;
@@ -181,21 +208,4 @@ function despedida(baseDatos) {
     }
 }
 
-const mercado = [];
-
-let cantidadProductos = 3;
-
-for (let i = 0; i < cantidadProductos; i++) {
-    mercado[i];
-    mercado.push(new compras(
-        producto = prompt("Ingrese Producto"),
-        precio = parseInt(prompt("Ingrese precio")),
-    )
-    )
-    for (let iva of mercado) {
-        iva.sumarIva()
-    }
-}
-
-devolucion();
 despedida(baseDatos);
