@@ -1,49 +1,118 @@
+
+////////////////////////////////////////  CONSTANTES GLOBALES  ////////////////////////////////////////////////
 const porcentajeLunes = 0.005;
 const porcentajeMartes = 0.015;
 const porcentajeMiercoles = 0.025;
 const porcentajeJueves = 0.010;
 const porcentajeViernes = 0.030;
+
+////////////////////////////////////////  VARIABLES GLOBALES  ////////////////////////////////////////////////
 let dia = 0;
 let monto = 0;
 let reintegro = 0;
-let nombreUsuario = "";
-let apellidoUsuario = "";
+let lobby = 0;
 
-function informacion() {
-    alert("Bienvenido a CUENTA DNI \n Sistema de reintegros mes de Enero")
-    let nombre = prompt("Ingrese nombre de usuario");
-    let apellido = prompt("Ingrese su apellido");
-    if (nombre != "" && apellido != "") {
-        alert("Hola " + nombre + " " + apellido);
-        nombreUsuario = nombre;
-        apellidoUsuario = apellido;
+
+////////////////////////////////////////  DESARROLLO CONSTRUCTOR DE OBJETOS  ////////////////////////////////////////////////
+
+class persona {
+    constructor(nombre, apellido, domicilio, dni, activo) {
+        this.nombre = nombre.toUpperCase();
+        this.apellido = apellido.toUpperCase();
+        this.domicilio = domicilio.toUpperCase();
+        this.dni = dni;
+        this.activo = activo;
     }
-    else if (nombre == "" && apellido != "") {
-        alert("Hola " + apellido);
-    }
-    else if (nombre != "" && apellido == "") {
-        alert("Hola " + nombre);
-    }
-    else {
-        alert("Usuario no registrado");
+
+    borrarDatos() {
+        this.nombre = "";
+        this.apellido = ""; F
+        this.domicilio = "";
+        this.dni = dni = "";
+        this.activo = false
     }
 }
-alert(nombreUsuario);
 
-function cuenta(monto, porcentajeLunes) {
-    return (monto * porcentajeLunes)
+class compras {
+    constructor(producto, precio) {
+        this.producto = producto.toLowerCase();
+        this.precio = precio;
+    }
+    sumarIva() {
+        this.precio = parseInt(this.precio * 1.21);
+    }
+}
+////////////////////////////////////////  DESARROLLO ARREGLO CON OBJETOS  ////////////////////////////////////////////////
+
+const baseDatos = []
+
+baseDatos.push(new persona("Gregorio", "Legarra", "Sarmiento 732", 11717794, false));
+baseDatos.push(new persona("Paola", "Merigo", "Jurado 1279", 32181427, false));
+
+
+////////////////////////////////////////  MODULO IDENTIFICACION USUARIO  ////////////////////////////////////////////////
+
+alert("Bienvenido a cuenta DNI \n Sistema de registro de usuarios")
+
+function recepcion() {
+    lobby = parseFloat(prompt("Ingrese su numero de dni"));
+    while (isNaN(lobby) || (typeof lobby != "number")) {
+        lobby = parseFloat(prompt("Ingrese su numero de dni"));
+    } return lobby
+}
+
+recepcion();
+function busqueda(baseDatos, lobby) {
+    let i = 0;
+
+    for (i = 0; i < baseDatos.length; i++) {
+        baseDatos[i];
+        if (lobby == baseDatos[i].dni) {
+            alert("Usuario Registrado \n \n Hola " + baseDatos[i].nombre + " " + baseDatos[i].apellido + "\n Domicilio: " + baseDatos[i].domicilio + "\n DNI: " + baseDatos[i].dni)
+            return baseDatos[i].activo = true;
+        }
+    }
+
+    alert("Usuario, no registrado \n Por favor complete los datos para su registro")
+    crearUsuario();
+}
+
+////////////////////////////////////////  CREACION NUEVO OBJETO-USUARIO  ////////////////////////////////////////////////
+
+function crearUsuario() {
+    baseDatos.push(new persona(
+        nombre = prompt("Ingrese nombre"),
+        apellido = prompt("Ingrese su apellido"),
+        domicilio = prompt("Ingrese su domicilio"),
+        dni = parseFloat(prompt("Ingrese su dni")),
+        activo = true,
+    )
+    )
+    alert("Nuevo usuario registrado")
+}
+
+busqueda(baseDatos, lobby);
+
+alert("Promocion ENERO \n con la compra de 3 productos se le reintegrara un % de dinero a su CUENTA DNI \n A todos los productos se les suma automaticamente el IVA")
+
+////////////////////////////////////////  MODULO DESCUENTOS  ////////////////////////////////////////////////
+
+function cuenta(monto, porcentaje) {
+    return (parseInt(monto * porcentaje))
 }
 
 function ingresoMonto() {
-    monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
-    while (isNaN(monto) || (typeof monto != "number")) {
-        monto = parseInt(prompt("Ingrese un monto para ver su reintegro"))
+    monto = 0;
 
-    } return monto;
+    for (let i = 0; i < cantidadProductos; i++) {
+        monto = mercado[i].precio + monto;
+    }
+
+    return monto;
 }
 
 function devolucion(dia) {
-    dia = prompt("Ingrese un dia de la semana (sin mayusculas), pulse 0 para salir")
+    dia = prompt("Ingrese un dia de la semana, pulse 0 para salir").toLowerCase();
     while (dia != 0) {
 
         switch (dia) {
@@ -52,7 +121,7 @@ function devolucion(dia) {
 
                 reintegro = cuenta(monto, porcentajeLunes)
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeLunes * 100) + "%")
-                alert("Usted ingreso $ " + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
+                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
                 break;
 
             case "martes":
@@ -60,7 +129,7 @@ function devolucion(dia) {
 
                 reintegro = cuenta(monto, porcentajeMartes);
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeMartes * 100) + "%")
-                alert("Usted ingreso $ " + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
+                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
                 break;
 
             case "miercoles":
@@ -68,7 +137,7 @@ function devolucion(dia) {
 
                 reintegro = cuenta(monto, porcentajeMiercoles);
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeMiercoles * 100) + "%")
-                alert("Usted ingreso $ " + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
+                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
                 break;
 
             case "jueves":
@@ -76,7 +145,7 @@ function devolucion(dia) {
 
                 reintegro = cuenta(monto, porcentajeJueves);
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeJueves * 100) + "%")
-                alert("Usted ingreso $ " + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
+                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
                 break;
 
             case "viernes":
@@ -84,7 +153,7 @@ function devolucion(dia) {
 
                 reintegro = cuenta(monto, porcentajeViernes);
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeViernes * 100) + "%")
-                alert("Usted ingreso $" + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
+                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
                 break;
 
             case "sabado": case "domingo":
@@ -92,25 +161,41 @@ function devolucion(dia) {
                 break;
 
             default:
-                alert("Recuerde ingresar un dia de la semana - Lunes a Viernes sin mayusculas")
+                alert("Recuerde ingresar un dia de la semana - Lunes a Viernes")
                 break;
         }
-        dia = prompt("Ingrese un dia, pulse 0 para salir");
+        dia = prompt("Ingrese un dia de la semana, pulse 0 para salir");
     }
 }
 
-function despedida() {
-    alert("Gracias por utilizar Cuenta DNI")
+////////////////////////////////////////  DESPEDIDA  ////////////////////////////////////////////////
 
-    if (nombreUsuario != "" && apellidoUsuario != "") {
-        alert("Volve pronto " + nombreUsuario + " " + apellidoUsuario);
-    }
+function despedida(baseDatos) {
+    let i = 0;
 
-    else {
-        alert("Volve pronto");
+    for (i = 0; i <= baseDatos.length; i++) {
+        baseDatos[i];
+        if (baseDatos[i].activo == true) {
+            alert("Gracias por utilizar Cuenta DNI" + "\nHasta pronto " + baseDatos[i].nombre + " " + baseDatos[i].apellido)
+        }
     }
 }
 
-informacion();
+const mercado = [];
+
+let cantidadProductos = 3;
+
+for (let i = 0; i < cantidadProductos; i++) {
+    mercado[i];
+    mercado.push(new compras(
+        producto = prompt("Ingrese Producto"),
+        precio = parseInt(prompt("Ingrese precio")),
+    )
+    )
+    for (let iva of mercado) {
+        iva.sumarIva()
+    }
+}
+
 devolucion();
-despedida()
+despedida(baseDatos);
