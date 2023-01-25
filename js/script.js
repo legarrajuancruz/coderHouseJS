@@ -64,8 +64,10 @@ function recepcion() {
 }
 
 recepcion();
+
 function busqueda(baseDatos, lobby) {
     let i = 0;
+
 
     for (i = 0; i < baseDatos.length; i++) {
         baseDatos[i];
@@ -78,6 +80,7 @@ function busqueda(baseDatos, lobby) {
     alert("Usuario, no registrado \n Por favor complete los datos para su registro")
     crearUsuario();
 }
+
 
 ////////////////////////////////////////  CREACION NUEVO OBJETO-USUARIO  ////////////////////////////////////////////////
 
@@ -198,14 +201,11 @@ for (let i = 0; i < cantidadProductos; i++) {
 devolucion();
 
 function despedida(baseDatos) {
-    let i = 0;
+    const busqueda = baseDatos.find((encontrado) => encontrado.activo === true)
+    alert("Volve Pronto " + busqueda.nombre + " " + busqueda.apellido)
 
-    for (i = 0; i <= baseDatos.length; i++) {
-        baseDatos[i];
-        if (baseDatos[i].activo == true) {
-            alert("Gracias por utilizar Cuenta DNI" + "\nHasta pronto " + baseDatos[i].nombre + " " + baseDatos[i].apellido)
-        }
-    }
 }
 
 despedida(baseDatos);
+
+
