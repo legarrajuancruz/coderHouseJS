@@ -9,6 +9,7 @@ const porcentajeViernes = 0.030;
 ////////////////////////////////////////  VARIABLES GLOBALES  ////////////////////////////////////////////////
 let dia = 0;
 let monto = 0;
+let resultado = 0;
 let reintegro = 0;
 let lobby = 0;
 let precio = 0;
@@ -34,15 +35,6 @@ class persona {
     }
 }
 
-class compras {
-    constructor(producto, precio) {
-        this.producto = producto.toLowerCase();
-        this.precio = precio;
-    }
-    sumarIva() {
-        this.precio = parseInt(this.precio * 1.21);
-    }
-}
 
 ////////////////////////////////////////  DESARROLLO ARREGLO CON OBJETOS  ////////////////////////////////////////////////
 
@@ -93,72 +85,104 @@ function crearUsuario() {
         activo = true,
     )
     )
-    alert("Nuevo usuario registrado")
+    alert("Nuevo usuario registrado \n Nombre: " + nombre + " " + apellido + "\n Domicilio: " + domicilio + "\n DNI: " + dni)
 }
 
 busqueda(baseDatos, lobby);
 
 alert("Promocion ENERO \n con la compra de 3 productos se le reintegrara un % de dinero a su CUENTA DNI \n A todos los productos se les suma automaticamente el IVA")
 
+
 ////////////////////////////////////////  MODULO DESCUENTOS  ////////////////////////////////////////////////
 
-function cuenta(monto, porcentaje) {
-    return (parseInt(monto * porcentaje))
+
+class compras {
+    constructor(producto, precio) {
+        this.producto = producto.toLowerCase();
+        this.precio = precio;
+    }
+    sumarIva() {
+        this.precio = parseInt(this.precio * 1.21);
+    }
 }
 
-function ingresoMonto() {
+const mercado = [];
+
+let cantidadProductos = 3;
+
+function ingresarNumero() {
+    precio = parseFloat(prompt("Ingrese precio del producto"));
+
+    while (isNaN(precio) || (typeof precio != "number")) {
+        precio = parseFloat(prompt("Ingrese precio del producto"));
+    }
+    return precio;
+}
+
+
+for (let i = 0; i < cantidadProductos; i++) {
+    mercado[i];
+    mercado.push(new compras(
+        producto = prompt("Ingrese Producto"),
+        precio = ingresarNumero(),
+    )
+    )
+    for (let iva of mercado) {
+        iva.sumarIva()
+    }
+}
+
+
+function sumaProductos() {
     monto = 0;
 
     for (let i = 0; i < cantidadProductos; i++) {
         monto = mercado[i].precio + monto;
     }
-
     return monto;
 }
 
-function devolucion(dia) {
+monto = sumaProductos()
+
+
+function cuenta(a, b) {
+    parseInt(resultado = a * b)
+}
+
+
+function devolucion() {
     dia = prompt("Ingrese un dia de la semana, pulse 0 para salir").toLowerCase();
     while (dia != 0) {
 
         switch (dia) {
             case "lunes":
-                ingresoMonto()
-
-                reintegro = cuenta(monto, porcentajeLunes)
+                cuenta(monto, porcentajeLunes)
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeLunes * 100) + "%")
-                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
+                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + resultado + " en su cuenta DNI")
                 break;
 
             case "martes":
-                ingresoMonto()
-
-                reintegro = cuenta(monto, porcentajeMartes);
+                cuenta(monto, porcentajeMartes);
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeMartes * 100) + "%")
-                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
+                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + resultado + " en su cuenta DNI")
                 break;
 
             case "miercoles":
-                ingresoMonto()
-
-                reintegro = cuenta(monto, porcentajeMiercoles);
+                cuenta(monto, porcentajeMiercoles);
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeMiercoles * 100) + "%")
-                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
+                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + resultado + " en su cuenta DNI")
                 break;
 
             case "jueves":
-                ingresoMonto()
-
-                reintegro = cuenta(monto, porcentajeJueves);
+                cuenta(monto, porcentajeJueves);
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeJueves * 100) + "%")
-                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
+                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + resultado + " en su cuenta DNI")
                 break;
 
             case "viernes":
-                ingresoMonto()
-
                 reintegro = cuenta(monto, porcentajeViernes);
                 alert("Los dias " + dia + " el reintegro sera de " + (porcentajeViernes * 100) + "%")
-                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + reintegro + " en su cuenta DNI")
+                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + resultado + " en su cuenta DNI")
                 break;
 
             case "sabado": case "domingo":
@@ -173,36 +197,14 @@ function devolucion(dia) {
     }
 }
 
-const mercado = [];
-
-let cantidadProductos = 3;
-
-function ingresarNumero() {
-    precio = parseFloat(prompt("Ingrese precio del producto"));
-
-    while (isNaN(precio) || (typeof precio != "number")) {
-        precio = parseFloat(prompt("Ingrese precio del producto"));
-    }
-    return precio
-}
-
-for (let i = 0; i < cantidadProductos; i++) {
-    mercado[i];
-    mercado.push(new compras(
-        producto = prompt("Ingrese Producto"),
-        precio = ingresarNumero(),
-    )
-    )
-    for (let iva of mercado) {
-        iva.sumarIva()
-    }
-}
-
 devolucion();
 
+
 function despedida(baseDatos) {
+
     const busqueda = baseDatos.find((encontrado) => encontrado.activo === true)
     alert("Volve Pronto " + busqueda.nombre + " " + busqueda.apellido)
+
 
 }
 
