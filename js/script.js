@@ -1,213 +1,118 @@
-
-////////////////////////////////////////  CONSTANTES GLOBALES  ////////////////////////////////////////////////
-const porcentajeLunes = 0.005;
-const porcentajeMartes = 0.015;
-const porcentajeMiercoles = 0.025;
-const porcentajeJueves = 0.010;
-const porcentajeViernes = 0.030;
-
-////////////////////////////////////////  VARIABLES GLOBALES  ////////////////////////////////////////////////
-let dia = 0;
-let monto = 0;
-let resultado = 0;
-let reintegro = 0;
-let lobby = 0;
-let precio = 0;
-
-
-////////////////////////////////////////  DESARROLLO CONSTRUCTOR DE OBJETOS  ////////////////////////////////////////////////
-
-class persona {
-    constructor(nombre, apellido, domicilio, dni, activo) {
-        this.nombre = nombre.toUpperCase();
-        this.apellido = apellido.toUpperCase();
-        this.domicilio = domicilio.toUpperCase();
-        this.dni = dni;
-        this.activo = activo;
+class Usuario {
+    constructor(nombre, apellido, domicilio, dni) {
+        this.nombre = nombre
+        this.apellido = apellido
+        this.domicilio = domicilio
+        this.dni = dni
     }
 
-    borrarDatos() {
-        this.nombre = "";
-        this.apellido = ""; F
-        this.domicilio = "";
-        this.dni = dni = "";
-        this.activo = false
+    setNombre(nuevoNombre) {
+        if (nombre != '') {
+            this.nombre = nuevoNombre
+        }
     }
-}
-
-
-////////////////////////////////////////  DESARROLLO ARREGLO CON OBJETOS  ////////////////////////////////////////////////
-
-const baseDatos = []
-
-baseDatos.push(new persona("Gregorio", "Legarra", "Sarmiento 732", 11717794, false));
-baseDatos.push(new persona("Paola", "Merigo", "Jurado 1279", 32181427, false));
-
-
-////////////////////////////////////////  MODULO IDENTIFICACION USUARIO  ////////////////////////////////////////////////
-
-alert("Bienvenido a cuenta DNI \n Sistema de registro de usuarios")
-
-function recepcion() {
-    lobby = parseFloat(prompt("Ingrese su numero de dni"));
-    while (isNaN(lobby) || (typeof lobby != "number")) {
-        lobby = parseFloat(prompt("Ingrese su numero de dni"));
-    } return lobby
-}
-
-recepcion();
-
-function busqueda(baseDatos, lobby) {
-    let i = 0;
-
-
-    for (i = 0; i < baseDatos.length; i++) {
-        baseDatos[i];
-        if (lobby == baseDatos[i].dni) {
-            alert("Usuario Registrado \n \n Hola " + baseDatos[i].nombre + " " + baseDatos[i].apellido + "\n Domicilio: " + baseDatos[i].domicilio + "\n DNI: " + baseDatos[i].dni)
-            return baseDatos[i].activo = true;
+    setApellido(nuevoApellido) {
+        if (apellido != '') {
+            this.apellido = nuevoApellido
+        }
+    }
+    setDomicilio(nuevoDomicilio) {
+        if (domicilio != '') {
+            this.domicilio = nuevoDomicilio
+        }
+    }
+    setDomicilio(nuevoDni) {
+        if (dni != '') {
+            this.dni = nuevoDni
         }
     }
 
-    alert("Usuario, no registrado \n Por favor complete los datos para su registro")
-    crearUsuario();
 }
 
 
-////////////////////////////////////////  CREACION NUEVO OBJETO-USUARIO  ////////////////////////////////////////////////
-
-function crearUsuario() {
-    baseDatos.push(new persona(
-        nombre = prompt("Ingrese nombre"),
-        apellido = prompt("Ingrese su apellido"),
-        domicilio = prompt("Ingrese su domicilio"),
-        dni = parseFloat(prompt("Ingrese su dni")),
-        activo = true,
-    )
-    )
-    alert("Nuevo usuario registrado \n Nombre: " + nombre + " " + apellido + "\n Domicilio: " + domicilio + "\n DNI: " + dni)
-}
-
-busqueda(baseDatos, lobby);
-
-alert("Promocion ENERO \n con la compra de 3 productos se le reintegrara un % de dinero a su CUENTA DNI \n A todos los productos se les suma automaticamente el IVA")
+document.getElementById("bienvenida").innerHTML = `Hola, por favor enciende la luz y completa tus datos`
 
 
-////////////////////////////////////////  MODULO DESCUENTOS  ////////////////////////////////////////////////
-
-
-class compras {
-    constructor(producto, precio) {
-        this.producto = producto.toLowerCase();
-        this.precio = precio;
-    }
-    sumarIva() {
-        this.precio = parseInt(this.precio * 1.21);
+function asignarValoresAlosInputs(usuario) {
+    if (usuario.nombre != '') {
+        document.getElementById("bienvenida").innerHTML = `Hola de nuevo ${usuario.nombre}, enciende la luz para modificar tus datos`
+        document.getElementById("inputNombre").value = usuario.nombre
+        document.getElementById("inputApellido").value = usuario.apellido
+        document.getElementById("inputDomicilio").value = usuario.domicilio
+        document.getElementById("inputDni").value = usuario.dni
     }
 }
 
-const mercado = [];
+let objetoLocalStorage = JSON.parse(localStorage.getItem("usuario"))
 
-let cantidadProductos = 3;
 
-function ingresarNumero() {
-    precio = parseFloat(prompt("Ingrese precio del producto"));
+if (objetoLocalStorage) {
 
-    while (isNaN(precio) || (typeof precio != "number")) {
-        precio = parseFloat(prompt("Ingrese precio del producto"));
-    }
-    return precio;
+    let usuario = new Usuario(objetoLocalStorage.nombre, objetoLocalStorage.apellido, objetoLocalStorage.domicilio, objetoLocalStorage.dni, objetoLocalStorage.modoOscuro)
+
+    console.log("usuario ===>")
+    console.log(usuario)
+
+    asignarValoresAlosInputs(usuario)
+    activarModoOscuro(objetoLocalStorage.modoOscuro)
+
+}
+
+document.getElementById("modoOscuro").addEventListener('change', activarModoOscuro)
+document.getElementById("formGrabarDatos").addEventListener("submit", grabarDatos);
+document.getElementById("reload").addEventListener('click', () => {
+    location.reload();
+})
+
+function grabarDatos(e) {
+    e.preventDefault();
+    let valorInputNombre = document.getElementById("inputNombre").value
+    let valorInputApellido = document.getElementById("inputApellido").value
+    let valorInputDomicilio = document.getElementById("inputDomicilio").value
+    let valorInputDni = document.getElementById("inputDni").value
+
+    localStorage.setItem("usuario", JSON.stringify({
+        nombre: valorInputNombre,
+        apellido: valorInputApellido,
+        domicilio: valorInputDomicilio,
+        dni: valorInputDni,
+
+    }))
+}
+
+function standBy() {
+    document.querySelector("#img-lampara").src = "./assets/images/apagada.jpg";
+    document.querySelector("#background").classList.add("apagado");
+    document.querySelector("#background").classList.remove("prendido");
+    document.querySelector("#formulario").classList.add("oculto");
+}
+
+standBy()
+
+function prender() {
+    document.querySelector("#img-lampara").src = "./assets/images/encendida.jpg";
+    document.querySelector("#background").classList.add("prendido");
+    document.querySelector("#background").classList.remove("apagado");
+    document.querySelector("#formulario").classList.remove("oculto");
+    document.querySelector("#bienvenida").classList.add("oculto");
+}
+
+function apagar() {
+    document.querySelector("#img-lampara").src = "./assets/images/apagada.jpg";
+    document.querySelector("#background").classList.add("apagado");
+    document.querySelector("#background").classList.remove("prendido");
+    document.querySelector("#formulario").classList.add("oculto");
+    document.querySelector("#bienvenida").classList.remove("oculto");
 }
 
 
-for (let i = 0; i < cantidadProductos; i++) {
-    mercado[i];
-    mercado.push(new compras(
-        producto = prompt("Ingrese Producto"),
-        precio = ingresarNumero(),
-    )
-    )
-    for (let iva of mercado) {
-        iva.sumarIva()
-    }
-}
-
-
-function sumaProductos() {
-    monto = 0;
-
-    for (let i = 0; i < cantidadProductos; i++) {
-        monto = mercado[i].precio + monto;
-    }
-    return monto;
-}
-
-monto = sumaProductos()
-
-
-function cuenta(a, b) {
-    parseInt(resultado = a * b)
-}
-
-
-function devolucion() {
-    dia = prompt("Ingrese un dia de la semana, pulse 0 para salir").toLowerCase();
-    while (dia != 0) {
-
-        switch (dia) {
-            case "lunes":
-                cuenta(monto, porcentajeLunes)
-                alert("Los dias " + dia + " el reintegro sera de " + (porcentajeLunes * 100) + "%")
-                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + resultado + " en su cuenta DNI")
-                break;
-
-            case "martes":
-                cuenta(monto, porcentajeMartes);
-                alert("Los dias " + dia + " el reintegro sera de " + (porcentajeMartes * 100) + "%")
-                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + resultado + " en su cuenta DNI")
-                break;
-
-            case "miercoles":
-                cuenta(monto, porcentajeMiercoles);
-                alert("Los dias " + dia + " el reintegro sera de " + (porcentajeMiercoles * 100) + "%")
-                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + resultado + " en su cuenta DNI")
-                break;
-
-            case "jueves":
-                cuenta(monto, porcentajeJueves);
-                alert("Los dias " + dia + " el reintegro sera de " + (porcentajeJueves * 100) + "%")
-                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + resultado + " en su cuenta DNI")
-                break;
-
-            case "viernes":
-                reintegro = cuenta(monto, porcentajeViernes);
-                alert("Los dias " + dia + " el reintegro sera de " + (porcentajeViernes * 100) + "%")
-                alert("Total suma productos $ " + monto + "\n Se le reintegraran " + " $" + resultado + " en su cuenta DNI")
-                break;
-
-            case "sabado": case "domingo":
-                alert("No Aplica reintegro")
-                break;
-
-            default:
-                alert("Recuerde ingresar un dia de la semana - Lunes a Viernes")
-                break;
-        }
-        dia = prompt("Ingrese un dia de la semana, pulse 0 para salir");
+function activarModoOscuro() {
+    if (document.getElementById("modoOscuro").checked) {
+        document.body.className = "claro"
+        prender()
+    } else {
+        document.body.className = "oscuro"
+        apagar()
     }
 }
-
-devolucion();
-
-
-function despedida(baseDatos) {
-
-    const busqueda = baseDatos.find((encontrado) => encontrado.activo === true)
-    alert("Volve Pronto " + busqueda.nombre + " " + busqueda.apellido)
-
-
-}
-
-despedida(baseDatos);
-
 
