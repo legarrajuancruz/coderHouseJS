@@ -30,8 +30,8 @@ class Usuario {
 }
 
 
-document.getElementById("bienvenida").innerHTML = `Hola, por favor enciende la luz y completa tus datos`
 
+document.getElementById("bienvenida").innerHTML = `Hola, por favor enciende la luz y completa tus datos`
 
 function asignarValoresAlosInputs(usuario) {
     if (usuario.nombre != '') {
@@ -40,6 +40,7 @@ function asignarValoresAlosInputs(usuario) {
         document.getElementById("inputApellido").value = usuario.apellido
         document.getElementById("inputDomicilio").value = usuario.domicilio
         document.getElementById("inputDni").value = usuario.dni
+
     }
 }
 
