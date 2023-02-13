@@ -42,6 +42,15 @@ let objetoLocalStorage = JSON.parse(localStorage.getItem("Usuarios"))
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+////////////////////////////////////////  ARREGLO CON OBJETOS - SET LOCALSTORGAE   ////////////////////////////////////////////////
+const baseDatos = []
+
+baseDatos.push(new persona("Gregorio", "Legarra", "Sarmiento 732", 11717794, false));
+baseDatos.push(new persona("Paola", "Merigo", "Jurado 1279", 32181427, false));
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 ////////////////////////////////////////  LOCALSTORGAE - BUSCAR USUARIO ////////////////////////////////////////////////
 
@@ -54,24 +63,18 @@ function recepcion() {
         document.getElementById("bienvenida").innerHTML = ("Hola " + busqueda.nombre + " " + busqueda.apellido + " , enciende la luz para modificar tus datos")
 
     }
-    else (document.getElementById("bienvenida").innerHTML = `Hola, por favor enciende la luz y completa tus datos`)
+
+    else {
+        document.getElementById("bienvenida").innerHTML = `Hola, por favor enciende la luz y completa tus datos`
+
+    }
 }
 
 recepcion()
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-////////////////////////////////////////  ARREGLO CON OBJETOS - SET LOCALSTORGAE   ////////////////////////////////////////////////
-const baseDatos = []
-
-baseDatos.push(new persona("Gregorio", "Legarra", "Sarmiento 732", 11717794, false));
-baseDatos.push(new persona("Paola", "Merigo", "Jurado 1279", 32181427, false));
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 
 
@@ -97,6 +100,7 @@ function busquedaUsuario() {
             }
             else {
                 document.getElementById("btnForm").addEventListener('click', crearUsuario)
+
                 document.querySelector("#respuestaIngreso").classList.remove("ocultoTotal")
                 document.getElementById("respuestaIngreso").innerHTML = `Registro de nuevo usuario`
 
@@ -109,6 +113,7 @@ function busquedaUsuario() {
         }
     }
 }
+
 
 document.getElementById("btnDni").addEventListener('click', busquedaUsuario)
 
