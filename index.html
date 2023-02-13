@@ -2,59 +2,77 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/bootstrap.css">
-  <link rel="stylesheet" href="./css/style.css">
-  <script src="./js/javascript.js" defer> </script>
-  <title>Entrega Tres</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/javascript.js" defer> </script>
+    <title>Entrega Tres</title>
 </head>
 
-<body class="">
-  <div class="container-md">
-    <div class="row">
-      <div class="col-md-4 col-lg-6 col-xl-12 mx-auto mb-4" id="background">
-        <img id="img-lampara" src="./assets/images/apagada.jpg" alt="lampara apagada">
-        <label class="switch">
-          <input type="checkbox" id="modoOscuro">
-          <span class="slider round"></span>
-        </label>
-      </div>
-    </div>
+<body class="oscuro">
 
-    <div class="row">
-      <div class="col-md-4 col-lg-8 col-xl-12 ">
-        <h1 id="bienvenida" class="textCenter"></h1>
-
-        <div id="formulario">
-          <form action="grabarDatos" id="formGrabarDatos">
-            <div id="datosUsuario">
-
-              <label class="row" for="dni"><b>DNI</b></label>
-              <input id="inputDni" type="text" placeholder="Dni" name="dni" required>
-
-              <label class="row" for="nombre"><b>Nombre</b></label>
-              <input id="inputNombre" type="text" placeholder="Nombre" name="nombre" required>
-
-              <label class="row" for="apellido"><b>Apellido</b></label>
-              <input id="inputApellido" type="text" placeholder="Apellido" name="apellido" required>
-
-              <label class="row" for="domicilio"><b>Domicilio</b></label>
-              <input id="inputDomicilio" type="text" placeholder="Domicilio" name="domicilio" required>
-
-
+    <div class="container-md">
+        <div class="row">
+            <div class="col-md-4 col-lg-6 col-xl-12 mx-auto mb-4" id="background">
+                <img id="img-lampara" src="./assets/images/apagada.jpg" alt="lampara apagada">
+                <label class="switch">
+                    <input type="checkbox" id="modoOscuro">
+                    <span class="slider round"></span>
+                </label>
+                <h1 id="bienvenida" class="textCenter"></h1>
             </div>
-            <div class="container col-lg-6 gap20">
-              <button type="submit" class="boton w-50">Grabar</button>
-              <button id="reload" type="submit" class="boton fondo-rojo w-50">Recargar Pagina</button>
-            </div>
-          </form>
         </div>
-      </div>
-    </div>
 
-  </div>
+        <div id="teclaLuz" class="oculto">
+            <div class="row">
+                <div class="col-md-4 col-lg-8 col-xl-12 ">
+                    <h1 id="bienvenida" class="textCenter"></h1>
+
+                    <div id="datosUsuario">
+                        <label id="label" class="row" for="dni"><b>DNI</b></label>
+                        <input id="inputDni" type="number" placeholder="Dni" name="dni" required>
+                        <button type="button" id="btnDni" class="w-50">Enviar</button>
+                    </div>
+
+                    <div id="usuarioInicio" class="ocultoTotal">
+                        <button type="button" class="boton fondo-rojo w-50 ">Cambiar
+                            Usuario</button>
+                    </div>
+                </div>
+                <div>
+                    <p class="ocultoTotal decoracion w-50 mt-4" id="respuestaIngreso"></p>
+                </div>
+
+                <div id="formulario" class="ocultoTotal">
+                    <form action="" id="formGrabarDatos">
+
+
+                        <label class="row" for="nombre"><b>Nombre</b></label>
+                        <input id="inputNombre" type="text" placeholder="Nombre" name="nombre" required>
+
+                        <label class="row" for="apellido"><b>Apellido</b></label>
+                        <input id="inputApellido" type="text" placeholder="Apellido" name="apellido" required>
+
+                        <label class="row" for="domicilio"><b>Domicilio</b></label>
+                        <input id="inputDomicilio" type="text" placeholder="Domicilio" name="domicilio" required>
+
+                        <label class="row" for="dni"><b>DNI</b></label>
+                        <input id="inputNuevoDni" type="number" placeholder="Dni" name="dni" required>
+
+
+
+                        <div class="container col-lg-6 gap20">
+                            <button id="btnForm" type="button" class="boton w-50">Grabar</button>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

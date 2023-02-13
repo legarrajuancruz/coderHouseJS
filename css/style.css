@@ -76,6 +76,16 @@ input[type=text] {
     background: #f1f1f1;
 }
 
+input[type=number] {
+    width: 50%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+
 input[type=text]:focus {
     background-color: #ddd;
     outline: none;
@@ -115,6 +125,18 @@ button {
     visibility: hidden
 }
 
+.mostrar {
+    visibility: visible;
+}
+
+.ocultoTotal {
+    display: none
+}
+
+.mostrarTotal {
+    display: contents;
+}
+
 .etiquetaDeInput {
     padding-right: 10px;
 }
@@ -146,6 +168,10 @@ button {
     gap: 20px
 }
 
-body {
-    background-color: black;
+.decoracion {
+    border: solid 1px black;
+    padding: 15px 0px 15px 0px;
+    text-align: center;
+    background-color: rgb(241, 241, 241);
+
 }
