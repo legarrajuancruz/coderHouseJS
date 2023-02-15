@@ -125,16 +125,12 @@ button {
     visibility: hidden
 }
 
-.mostrar {
-    visibility: visible;
-}
-
 .ocultoTotal {
     display: none
 }
 
 .mostrarTotal {
-    display: contents;
+    visibility: visible;
 }
 
 .etiquetaDeInput {
@@ -160,18 +156,46 @@ button {
 
 .container {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: row;
+}
+
+.containerDos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .gap20 {
     gap: 20px
 }
 
+
 .decoracion {
     border: solid 1px black;
     padding: 15px 0px 15px 0px;
     text-align: center;
     background-color: rgb(241, 241, 241);
+}
 
+
+.compras {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+
+.comprasColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cursor-pointer:hover {
+    cursor: pointer;
+}
+
+.color-verde {
+    color: #0039f3;
 }
