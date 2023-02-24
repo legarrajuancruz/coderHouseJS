@@ -4,8 +4,7 @@ if (STUDENT == '')
 
 document.getElementById("loader").style.display = "none";
 
-
-/////////////////////// CONSTRUCTOR OBJETOS POR CLASE ///////////////////////
+/////////////////////// CONSTRUCTOR OBJETOS CON CLASE ///////////////////////
 
 class Usuario {
     constructor(nombre, apellido, domicilio, dni) {
@@ -35,11 +34,12 @@ class Usuario {
             this.dni = nuevoDni
         }
     }
-
 }
 
-document.getElementById("bienvenida").innerHTML = `Hola, por favor enciende la luz y completa tus datos`
 
+/////////////////////// INGRESO DATOS USUARIO ////////////////////////
+
+document.getElementById("bienvenida").innerHTML = `Hola, por favor enciende la luz y completa tus datos`
 
 function ValoresInputs(usuario) {
     if (usuario.nombre != '') {
@@ -55,7 +55,6 @@ function ValoresInputs(usuario) {
 
 let objetoLocalStorage = JSON.parse(localStorage.getItem("usuario"))
 
-
 if (objetoLocalStorage) {
     let usuario = new Usuario(objetoLocalStorage.nombre, objetoLocalStorage.apellido, objetoLocalStorage.domicilio, objetoLocalStorage.dni)
     ValoresInputs(usuario)
@@ -65,12 +64,25 @@ if (objetoLocalStorage) {
     ValoresInputs(usuario)
 }
 
+/////////////////////// EVENTOS ////////////////////////
 
 document.getElementById("teclaLuz").addEventListener('change', todoApagado)
 document.getElementById("formGrabarDatos").addEventListener("submit", grabarDatos);
 document.getElementById("reload").addEventListener('click', () => {
     location.reload();
 })
+document.getElementById("traerUsuario").addEventListener("click", () => {
+    buscarUsuario(document.getElementById("inputNombre").value)
+});
+document.getElementById("actualizarUsuario").addEventListener("click", () => {
+    actualizarUsuario({
+        userId: document.getElementById("inputNombre").value,
+        userApellido: document.getElementById("inputApellido").value,
+        userDomicilio: document.getElementById("inputDomicilio").value,
+        userDni: document.getElementById("inputDni").value,
+    })
+});
+
 
 ///////////////////////LOCALSTORAGE JSON STRINGIFY - GRABAR EN SERVER ////////////////////////
 
@@ -96,7 +108,7 @@ function grabarDatos(e) {
     })
 }
 
-///////////////////////FETCH GET - async-await ////////////////////////
+///////////////////////FETCH GET - async-await +spinner ////////////////////////
 
 const buscarUsuario = async (userId) => {
     document.getElementById("loader").style.display = "";
@@ -106,7 +118,7 @@ const buscarUsuario = async (userId) => {
     const data = await respuesta.json()
     if (!respuesta.ok) {
         mostrarMensaje({
-            titulo: "¡El usuario no existe!",
+            titulo: "¡Usuario no registrado!",
             comentario: `respuesta del servidor: ${data.error.message}`,
             icono: "warning"
         })
@@ -124,7 +136,7 @@ const buscarUsuario = async (userId) => {
 }
 
 
-///////////////////////FETCH POST - async-await ////////////////////////
+///////////////////////FETCH POST - async-await +spinner ////////////////////////
 
 const grabarDatosServer = async (user) => {
     document.getElementById("loader").style.display = "";
@@ -142,14 +154,14 @@ const grabarDatosServer = async (user) => {
 
     if (respuesta.ok) {
         mostrarMensaje({
-            titulo: "¡Usuario grabado con exito!",
+            titulo: "¡Nuevo usuario!",
             comentario: `¡El usuario ${user.userId} ${user.userApellido} fue grabado con exito`,
             icono: "success"
         })
     }
     else {
         mostrarMensaje({
-            titulo: "¡El usuario no fue grabado!",
+            titulo: "¡oops, algo ah salido mal!",
             comentario: `respuesta del servidor: ${data.error.message}`,
             icono: "error"
         })
@@ -165,7 +177,7 @@ document.getElementById("traerUsuario").addEventListener("click", () => {
 
 
 
-///////////////////////FETCH PUT - async-await ////////////////////////
+///////////////////////FETCH PUT - async-await +spinner ////////////////////////
 
 const actualizarUsuario = async (user) => {
     document.getElementById("loader").style.display = "";
@@ -184,7 +196,7 @@ const actualizarUsuario = async (user) => {
     const data = await respuesta.json()
     if (respuesta.ok) {
         mostrarMensaje({
-            titulo: "¡Usuario actualizado con exito!",
+            titulo: "¡Usuario actualizado!",
             comentario: `El usuario ${user.userId} ${user.userApellido} fue actualizado con exito`,
             icono: "success"
         })
@@ -202,27 +214,7 @@ const actualizarUsuario = async (user) => {
 }
 
 
-/////////////////////// EVENTO CLICK - BUSCAR DATOS USUARIO ///////////////////////
-
-document.getElementById("traerUsuario").addEventListener("click", () => {
-    buscarUsuario(document.getElementById("inputNombre").value)
-});
-
-
-/////////////////////// EVENTO CLICK - ACTUALIZAR DATOS USUARIO ///////////////////////
-
-document.getElementById("actualizarUsuario").addEventListener("click", () => {
-    actualizarUsuario({
-        userId: document.getElementById("inputNombre").value,
-        userApellido: document.getElementById("inputApellido").value,
-        userDomicilio: document.getElementById("inputDomicilio").value,
-        userDni: document.getElementById("inputDni").value,
-
-    })
-});
-
-
-///////////////////////FETCH DELETE/ - sync-await ///////////////////////
+///////////////////////FETCH DELETE/ - sync-await +spinner ///////////////////////
 
 const deleteUsuario = async (user) => {
     document.getElementById("loader").style.display = "";
@@ -233,7 +225,7 @@ const deleteUsuario = async (user) => {
     const data = await respuesta.json()
     if (respuesta.ok) {
         mostrarMensaje({
-            titulo: "¡Usuario eliminado con exito!",
+            titulo: "¡Usuario eliminado!",
             comentario: `El usuario ${user} fue eliminado con exito`,
             icono: "success"
         })
