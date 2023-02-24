@@ -13,20 +13,20 @@
   <title>Entrega Cuatro</title>
 </head>
 
-<body class="">
+<body class="container">
   <div id="main" class="container-md">
     <div class="row">
       <div class="col-md-4 col-lg-6 col-xl-12 mx-auto mb-4" id="background">
         <img id="img-lampara" src="./assets/images/apagada.jpg" alt="lampara apagada">
         <label class="switch">
-          <input type="checkbox" id="modoOscuro">
+          <input type="checkbox" id="teclaLuz">
           <span class="slider round"></span>
         </label>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-4 col-lg-8 col-xl-12 ">
+      <div class="col-md-8 col-lg-8 col-xl-12 ">
         <h1 id="bienvenida" class="textCenter"></h1>
 
         <div id="formulario">
@@ -47,19 +47,21 @@
 
 
             </div>
-            <div class="container col-lg-6 gap20">
-              <button type="submit" class="boton w-50">Grabar</button>
+            <div class="container  gap20">
+              <button type="submit" class="boton w-50">Grabar Usuario</button>
               <button id="reload" type="submit" class="boton fondo-rojo w-50">Recargar Pagina</button>
+
+
             </div>
           </form>
+          <div class="container gap20">
+            <button id="traerUsuario" class="boton w-50">Traer Usuario</button>
+            <button id="actualizarUsuario" class="boton w-50">Actualizar Usuario</button>
+            <button id="deleteUsuario" class="boton  w-50">Borrar Usuario</button>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="container col-lg-6 gap20">
-      <button id="traerUsuario" class="boton w-50">Traer</button>
-      <button id="actualizarUsuario" class="boton w-50">Actualizar</button>
-      <button id="deleteUsuario" class="boton  w-50">Delete</button>
+      </div>
     </div>
 
   </div>

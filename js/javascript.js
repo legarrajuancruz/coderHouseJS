@@ -5,6 +5,7 @@ if (STUDENT == '')
 document.getElementById("loader").style.display = "none";
 
 
+/////////////////////// CONSTRUCTOR OBJETOS POR CLASE ///////////////////////
 
 class Usuario {
     constructor(nombre, apellido, domicilio, dni) {
@@ -37,9 +38,8 @@ class Usuario {
 
 }
 
-
-
 document.getElementById("bienvenida").innerHTML = `Hola, por favor enciende la luz y completa tus datos`
+
 
 function ValoresInputs(usuario) {
     if (usuario.nombre != '') {
@@ -48,24 +48,17 @@ function ValoresInputs(usuario) {
         document.getElementById("inputApellido").value = usuario.apellido
         document.getElementById("inputDomicilio").value = usuario.domicilio
         document.getElementById("inputDni").value = usuario.dni
-
     }
 }
+
+///////////////////////LOCALSTORAGE JSON PARSE////////////////////////
 
 let objetoLocalStorage = JSON.parse(localStorage.getItem("usuario"))
 
 
-
-
 if (objetoLocalStorage) {
-
     let usuario = new Usuario(objetoLocalStorage.nombre, objetoLocalStorage.apellido, objetoLocalStorage.domicilio, objetoLocalStorage.dni)
-
-    console.log("usuario ===>")
-    console.log(usuario)
-
     ValoresInputs(usuario)
-
 
 } else {
     let usuario = new Usuario('', '', '', '',)
@@ -73,14 +66,13 @@ if (objetoLocalStorage) {
 }
 
 
-
-document.getElementById("modoOscuro").addEventListener('change', todoApagado)
+document.getElementById("teclaLuz").addEventListener('change', todoApagado)
 document.getElementById("formGrabarDatos").addEventListener("submit", grabarDatos);
 document.getElementById("reload").addEventListener('click', () => {
     location.reload();
 })
 
-
+///////////////////////LOCALSTORAGE JSON STRINGIFY - GRABAR EN SERVER ////////////////////////
 
 function grabarDatos(e) {
     e.preventDefault();
@@ -101,11 +93,10 @@ function grabarDatos(e) {
         userApellido: valorInputApellido,
         userDomicilio: valorInputDomicilio,
         userDni: valorInputDni,
-
     })
 }
 
-
+///////////////////////FETCH GET - async-await ////////////////////////
 
 const buscarUsuario = async (userId) => {
     document.getElementById("loader").style.display = "";
@@ -133,6 +124,7 @@ const buscarUsuario = async (userId) => {
 }
 
 
+///////////////////////FETCH POST - async-await ////////////////////////
 
 const grabarDatosServer = async (user) => {
     document.getElementById("loader").style.display = "";
@@ -144,7 +136,6 @@ const grabarDatosServer = async (user) => {
             userApellido: user.userApellido,
             userDomicilio: user.userDomicilio,
             userDni: user.userDni,
-
         })
     })
     const data = await respuesta.json()
@@ -155,7 +146,8 @@ const grabarDatosServer = async (user) => {
             comentario: `¡El usuario ${user.userId} ${user.userApellido} fue grabado con exito`,
             icono: "success"
         })
-    } else {
+    }
+    else {
         mostrarMensaje({
             titulo: "¡El usuario no fue grabado!",
             comentario: `respuesta del servidor: ${data.error.message}`,
@@ -167,16 +159,18 @@ const grabarDatosServer = async (user) => {
     return data
 }
 
-
 document.getElementById("traerUsuario").addEventListener("click", () => {
     buscarUsuario(document.getElementById("inputNombre").value)
 });
 
 
 
+///////////////////////FETCH PUT - async-await ////////////////////////
+
 const actualizarUsuario = async (user) => {
     document.getElementById("loader").style.display = "";
     document.getElementById("main").style.display = "none";
+
     const respuesta = await fetch('https://api.fabianjanuszewski.com/34165/user/', {
         method: 'PUT',
         body: JSON.stringify({
@@ -184,34 +178,38 @@ const actualizarUsuario = async (user) => {
             userApellido: user.userApellido,
             userDomicilio: user.userDomicilio,
             userDni: user.userDni,
-
         })
     })
+
     const data = await respuesta.json()
     if (respuesta.ok) {
-
         mostrarMensaje({
             titulo: "¡Usuario actualizado con exito!",
             comentario: `El usuario ${user.userId} ${user.userApellido} fue actualizado con exito`,
             icono: "success"
         })
-    } else {
+    }
+    else {
         mostrarMensaje({
             titulo: "¡El usuario no fue actualizado!",
             comentario: `respuesta del servidor: ${data.error.message}`,
             icono: "error"
         })
     }
-
     document.getElementById("loader").style.display = "none";
     document.getElementById("main").style.display = "";
     return data
 }
 
 
+/////////////////////// EVENTO CLICK - BUSCAR DATOS USUARIO ///////////////////////
+
 document.getElementById("traerUsuario").addEventListener("click", () => {
     buscarUsuario(document.getElementById("inputNombre").value)
 });
+
+
+/////////////////////// EVENTO CLICK - ACTUALIZAR DATOS USUARIO ///////////////////////
 
 document.getElementById("actualizarUsuario").addEventListener("click", () => {
     actualizarUsuario({
@@ -224,6 +222,7 @@ document.getElementById("actualizarUsuario").addEventListener("click", () => {
 });
 
 
+///////////////////////FETCH DELETE/ - sync-await ///////////////////////
 
 const deleteUsuario = async (user) => {
     document.getElementById("loader").style.display = "";
@@ -238,7 +237,8 @@ const deleteUsuario = async (user) => {
             comentario: `El usuario ${user} fue eliminado con exito`,
             icono: "success"
         })
-    } else {
+    }
+    else {
         mostrarMensaje({
             titulo: "¡El usuario no fue eliminado!",
             comentario: `respuesta del servidor: ${data.error.message}`,
@@ -254,6 +254,8 @@ document.getElementById("deleteUsuario").addEventListener("click", () => {
 });
 
 
+/////////////////////// MENSAJE RESPUESTA ///////////////////////
+
 function mostrarMensaje(mensaje) {
     Swal.fire({
         title: mensaje.titulo,
@@ -265,6 +267,7 @@ function mostrarMensaje(mensaje) {
 }
 
 
+/////////////////////// FUNCIONES TECLA LUZ ///////////////////////
 
 function standBy() {
     document.querySelector("#img-lampara").src = "./assets/images/apagada.jpg";
@@ -272,7 +275,6 @@ function standBy() {
     document.querySelector("#background").classList.remove("prendido");
     document.querySelector("#formulario").classList.add("oculto");
 }
-
 standBy()
 
 function prender() {
@@ -291,9 +293,8 @@ function apagar() {
     document.querySelector("#bienvenida").classList.remove("oculto");
 }
 
-
 function todoApagado() {
-    if (document.getElementById("modoOscuro").checked) {
+    if (document.getElementById("teclaLuz").checked) {
         document.body.className = "claro"
         prender()
     } else {
