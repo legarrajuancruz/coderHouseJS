@@ -7,15 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/bootstrap.css">
   <link rel="stylesheet" href="./css/style.css">
-  <script src="./js/javascript.js" defer> </script>
-  <title>Entrega Tres</title>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="./js/javascript.js" defer> </script>
+  <title>Entrega Cuatro</title>
 </head>
 
-<body class="oscuro">
-
-  <div class="container-md">
-
+<body class="">
+  <div id="main" class="container-md">
     <div class="row">
       <div class="col-md-4 col-lg-6 col-xl-12 mx-auto mb-4" id="background">
         <img id="img-lampara" src="./assets/images/apagada.jpg" alt="lampara apagada">
@@ -23,36 +22,16 @@
           <input type="checkbox" id="modoOscuro">
           <span class="slider round"></span>
         </label>
-        <h1 id="bienvenida" class="textCenter"></h1>
       </div>
     </div>
 
-    <div id="teclaLuz" class="ocultoTotal">
-      <div class="containerDos">
-        <div class="row">
-          <div class="col-md-4 col-lg-8 col-xl-12">
+    <div class="row">
+      <div class="col-md-4 col-lg-8 col-xl-12 ">
+        <h1 id="bienvenida" class="textCenter"></h1>
 
+        <div id="formulario">
+          <form action="grabarDatos" id="formGrabarDatos">
             <div id="datosUsuario">
-              <div class="col-md-4 col-lg-8 col-xl-12">
-                <label id="label" class="row w-50" for="dni"><b>DNI</b></label>
-                <input id="inputDni" type="number" placeholder="Dni" name="dni" required>
-                <button class="cursor-pointer w-50" type="button" id="btnDni">Enviar</button>
-              </div>
-            </div>
-
-            <div id="usuarioInicio" class="ocultoTotal">
-              <button type="button" class="boton fondo-rojo w-50 ">Cambiar Usuario</button>
-            </div>
-
-          </div>
-
-          <div>
-            <h5 id="respuestaIngreso" class="ocultoTotal decoracion w-50 mt-4"></h5>
-          </div>
-
-          <div id="formulario" class="ocultoTotal">
-            <form action="" id="formGrabarDatos">
-
 
               <label class="row" for="nombre"><b>Nombre</b></label>
               <input id="inputNombre" type="text" placeholder="Nombre" name="nombre" required>
@@ -60,48 +39,31 @@
               <label class="row" for="apellido"><b>Apellido</b></label>
               <input id="inputApellido" type="text" placeholder="Apellido" name="apellido" required>
 
+              <label class="row" for="dni"><b>DNI</b></label>
+              <input id="inputDni" type="text" placeholder="Dni" name="dni" required>
+
               <label class="row" for="domicilio"><b>Domicilio</b></label>
               <input id="inputDomicilio" type="text" placeholder="Domicilio" name="domicilio" required>
 
-              <label class="row" for="dni"><b>DNI</b></label>
-              <input id="inputNuevoDni" type="number" placeholder="Dni" name="dni" required>
 
-
-              <div class="container col-lg-6 gap20">
-                <button id="btnForm" type="button" class="boton w-50">Grabar</button>
-
-
-            </form>
-
-          </div>
+            </div>
+            <div class="container col-lg-6 gap20">
+              <button type="submit" class="boton w-50">Grabar</button>
+              <button id="reload" type="submit" class="boton fondo-rojo w-50">Recargar Pagina</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
+
+    <div class="container col-lg-6 gap20">
+      <button id="traerUsuario" class="boton w-50">Traer</button>
+      <button id="actualizarUsuario" class="boton w-50">Actualizar</button>
+      <button id="deleteUsuario" class="boton  w-50">Delete</button>
+    </div>
+
   </div>
-
-  <div id="compraItems" class="ocultoTotal">
-    <h1 class="textCenter">ITEMS</h1>
-
-    <table id="items" class="textCenter">
-
-      <tr>
-        <th>ItemId</th>
-        <th>Nombre</th>
-        <th>Precio</th>
-        <th>Acciones</th>
-      </tr>
-
-      <tr>
-        <td><input id="nuevoItemId" class="inputItem" type="text" placeholder="itemId"></td>
-        <td><input id="nuevoItemNombre" class="inputItem" type="text" placeholder="nombre"></td>
-        <td><input id="nuevoItemPrecio" class="inputItem" type="number" placeholder="precio"></td>
-        <td><i id="agregarItem" class="large material-icons color-verde cursor-pointer">add_box
-          </i></td>
-      </tr>
-
-    </table>
-  </div>
-
+  <div id="loader"></div>
 </body>
 
 </html>

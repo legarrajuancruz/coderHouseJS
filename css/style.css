@@ -76,16 +76,6 @@ input[type=text] {
     background: #f1f1f1;
 }
 
-input[type=number] {
-    width: 50%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    display: inline-block;
-    border: none;
-    background: #f1f1f1;
-}
-
-
 input[type=text]:focus {
     background-color: #ddd;
     outline: none;
@@ -125,14 +115,6 @@ button {
     visibility: hidden
 }
 
-.ocultoTotal {
-    display: none
-}
-
-.mostrarTotal {
-    visibility: visible;
-}
-
 .etiquetaDeInput {
     padding-right: 10px;
 }
@@ -156,46 +138,23 @@ button {
 
 .container {
     display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-}
-
-.containerDos {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
+    flex-direction: row;
 }
 
 .gap20 {
     gap: 20px
 }
 
-
-.decoracion {
-    border: solid 1px black;
-    padding: 15px 0px 15px 0px;
-    text-align: center;
-    background-color: rgb(241, 241, 241);
+body {
+    background-color: black;
 }
 
-
-.compras {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-
+.delete-item {
+    color: rgba(243, 87, 87, 0.774);
 }
 
-.comprasColumn {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.cursor-pointer:hover {
+.delete-item:hover {
+    color: rgba(243, 87, 87, 0.774);
     cursor: pointer;
-}
-
-.color-verde {
-    color: #0039f3;
 }

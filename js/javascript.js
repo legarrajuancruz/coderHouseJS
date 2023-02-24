@@ -1,155 +1,286 @@
+const STUDENT = 'JuanCruz'
+if (STUDENT == '')
+    console.error("Ingresa el usuario!")
 
-////////////////////////////////////////  CONSTANTES GLOBALES  ////////////////////////////////////////////////
-const porcentajeLunes = 0.005;
-const porcentajeMartes = 0.015;
-const porcentajeMiercoles = 0.025;
-const porcentajeJueves = 0.010;
-const porcentajeViernes = 0.030;
-
-////////////////////////////////////////  VARIABLES GLOBALES  ////////////////////////////////////////////////
-let dia = 0;
-let monto = 0;
-let resultado = 0;
-let reintegro = 0;
-let precio = 0;
+document.getElementById("loader").style.display = "none";
 
 
-////////////////////////////////////////  DESARROLLO CONSTRUCTOR DE OBJETOS  ////////////////////////////////////////////////
 
-class persona {
-    constructor(nombre, apellido, domicilio, dni, activo) {
-        this.nombre = nombre.toUpperCase();
-        this.apellido = apellido.toUpperCase();
-        this.domicilio = domicilio.toUpperCase();
-        this.dni = dni;
-        this.activo = activo;
+class Usuario {
+    constructor(nombre, apellido, domicilio, dni) {
+        this.nombre = nombre
+        this.apellido = apellido
+        this.domicilio = domicilio
+        this.dni = dni
     }
 
-    borrarDatos() {
-        this.nombre = "";
-        this.apellido = "";
-        this.domicilio = "";
-        this.dni = dni = "";
-        this.activo = false
+    setNombre(nuevoNombre) {
+        if (nombre != '') {
+            this.nombre = nuevoNombre
+        }
     }
+    setApellido(nuevoApellido) {
+        if (apellido != '') {
+            this.apellido = nuevoApellido
+        }
+    }
+    setDomicilio(nuevoDomicilio) {
+        if (domicilio != '') {
+            this.domicilio = nuevoDomicilio
+        }
+    }
+    setDomicilio(nuevoDni) {
+        if (dni != '') {
+            this.dni = nuevoDni
+        }
+    }
+
 }
 
 
-////////////////////////////////////////  GET LOCALSTORGAE  ////////////////////////////////////////////////
-
-let objetoLocalStorage = JSON.parse(localStorage.getItem("Usuarios"))
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-////////////////////////////////////////  ARREGLO CON OBJETOS ////////////////////////////////////////////////
-const baseDatos = []
-
-baseDatos.push(new persona("Gregorio", "Legarra", "Sarmiento 732", 11717794, false));
-baseDatos.push(new persona("Paola", "Merigo", "Jurado 1279", 32181427, false));
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-////////////////////////////////////////  LOCALSTORGAE - BUSCAR USUARIO ////////////////////////////////////////////////
 
 document.getElementById("bienvenida").innerHTML = `Hola, por favor enciende la luz y completa tus datos`
 
-function recepcion() {
-
-    if (objetoLocalStorage) {
-        const busqueda = objetoLocalStorage.find((encontrado) => encontrado.activo === true)
-        document.getElementById("bienvenida").innerHTML = ("Hola " + busqueda.nombre + " " + busqueda.apellido + " , enciende la luz")
-
-    }
-
-    else {
-        document.getElementById("bienvenida").innerHTML = `Hola, por favor enciende la luz y completa tus datos`
+function ValoresInputs(usuario) {
+    if (usuario.nombre != '') {
+        document.getElementById("bienvenida").innerHTML = `Hola de nuevo ${usuario.nombre}, enciende la luz para modificar tus datos`
+        document.getElementById("inputNombre").value = usuario.nombre
+        document.getElementById("inputApellido").value = usuario.apellido
+        document.getElementById("inputDomicilio").value = usuario.domicilio
+        document.getElementById("inputDni").value = usuario.dni
 
     }
 }
 
-recepcion()
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let objetoLocalStorage = JSON.parse(localStorage.getItem("usuario"))
 
 
 
-function busquedaUsuario() {
-    let i = 0;
-    if (document.getElementById("btnDni").addEventListener) {
-        for (i = 0; i < baseDatos.length; i++) {
-            baseDatos[i];
 
-            if (document.getElementById("inputDni").value == baseDatos[i].dni) {
-                document.getElementById("respuestaIngreso").innerHTML = `Usuario Registrado:  ${baseDatos[i].nombre} ${baseDatos[i].apellido}`
+if (objetoLocalStorage) {
+
+    let usuario = new Usuario(objetoLocalStorage.nombre, objetoLocalStorage.apellido, objetoLocalStorage.domicilio, objetoLocalStorage.dni)
+
+    console.log("usuario ===>")
+    console.log(usuario)
+
+    ValoresInputs(usuario)
 
 
-                document.querySelector("#formulario").classList.add("ocultoTotal");
-                document.querySelector("#datosUsuario").classList.remove("mostrarTotal")
-                document.querySelector("#datosUsuario").classList.add("ocultoTotal")
+} else {
+    let usuario = new Usuario('', '', '', '',)
+    ValoresInputs(usuario)
+}
 
-                document.querySelector("#respuestaIngreso").classList.remove("ocultoTotal")
-                document.querySelector("#respuestaIngreso").classList.add("mostrarTotal")
 
-                baseDatos[i].activo = true;
-                toLocalStorage(baseDatos);
-                return
 
-            }
-            else {
-                document.getElementById("btnForm").addEventListener('click', crearUsuario)
+document.getElementById("modoOscuro").addEventListener('change', todoApagado)
+document.getElementById("formGrabarDatos").addEventListener("submit", grabarDatos);
+document.getElementById("reload").addEventListener('click', () => {
+    location.reload();
+})
 
-                document.getElementById("respuestaIngreso").innerHTML = `Registro de nuevo usuario`
 
-                document.querySelector("#respuestaIngreso").classList.remove("ocultoTotal")
-                document.querySelector("#respuestaIngreso").classList.add("mostrarTotal")
 
-                document.querySelector("#datosUsuario").classList.remove("mostrarTotal")
-                document.querySelector("#datosUsuario").classList.add("ocultoTotal")
+function grabarDatos(e) {
+    e.preventDefault();
+    let valorInputNombre = document.getElementById("inputNombre").value
+    let valorInputApellido = document.getElementById("inputApellido").value
+    let valorInputDomicilio = document.getElementById("inputDomicilio").value
+    let valorInputDni = document.getElementById("inputDni").value
 
-                document.querySelector("#formulario").classList.remove("ocultoTotal");
-                document.querySelector("#usuarioInicio").classList.add("ocultoTotal")
+    localStorage.setItem("usuario", JSON.stringify({
+        nombre: valorInputNombre,
+        apellido: valorInputApellido,
+        domicilio: valorInputDomicilio,
+        dni: valorInputDni,
 
-            }
-        }
+    }))
+    grabarDatosServer({
+        userId: valorInputNombre,
+        userApellido: valorInputApellido,
+        userDomicilio: valorInputDomicilio,
+        userDni: valorInputDni,
+
+    })
+}
+
+
+
+const buscarUsuario = async (userId) => {
+    document.getElementById("loader").style.display = "";
+    document.getElementById("main").style.display = "none";
+
+    const respuesta = await fetch(`https://api.fabianjanuszewski.com/34165/user/${userId}`)
+    const data = await respuesta.json()
+    if (!respuesta.ok) {
+        mostrarMensaje({
+            titulo: "¡El usuario no existe!",
+            comentario: `respuesta del servidor: ${data.error.message}`,
+            icono: "warning"
+        })
+
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("main").style.display = "";
+        return
     }
+
+    let usuario = new Usuario(data.userId, data.userApellido, data.userDomicilio, data.userDni)
+    ValoresInputs(usuario)
+
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("main").style.display = "";
 }
 
 
-document.getElementById("btnDni").addEventListener('click', busquedaUsuario)
 
+const grabarDatosServer = async (user) => {
+    document.getElementById("loader").style.display = "";
+    document.getElementById("main").style.display = "none";
+    const respuesta = await fetch('https://api.fabianjanuszewski.com/34165/user/', {
+        method: 'POST',
+        body: JSON.stringify({
+            userId: user.userId,
+            userApellido: user.userApellido,
+            userDomicilio: user.userDomicilio,
+            userDni: user.userDni,
 
-function crearUsuario() {
-    baseDatos.push(new persona(
-        nombre = document.getElementById("inputNombre").value,
-        apellido = document.getElementById("inputApellido").value,
-        domicilio = document.getElementById("inputDni").value,
-        dni = document.getElementById("inputNuevoDni").value,
-        activo = true,
-    )
-    )
-    document.querySelector("#datosUsuario").classList.remove("mostrarTotal")
-    document.querySelector("#formulario").classList.add("ocultoTotal")
-    document.querySelector("#respuestaIngreso").classList.remove("ocultoTotal")
+        })
+    })
+    const data = await respuesta.json()
 
-    let print = `Nuevo usuario registrado: ` + nombre + " " + apellido
-    document.getElementById("respuestaIngreso").innerHTML = print
-    toLocalStorage(baseDatos);
+    if (respuesta.ok) {
+        mostrarMensaje({
+            titulo: "¡Usuario grabado con exito!",
+            comentario: `¡El usuario ${user.userId} ${user.userApellido} fue grabado con exito`,
+            icono: "success"
+        })
+    } else {
+        mostrarMensaje({
+            titulo: "¡El usuario no fue grabado!",
+            comentario: `respuesta del servidor: ${data.error.message}`,
+            icono: "error"
+        })
+    }
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("main").style.display = "";
+    return data
 }
 
 
-document.getElementById("modoOscuro").addEventListener('change', activarModoOscuro)
+document.getElementById("traerUsuario").addEventListener("click", () => {
+    buscarUsuario(document.getElementById("inputNombre").value)
+});
+
+
+
+const actualizarUsuario = async (user) => {
+    document.getElementById("loader").style.display = "";
+    document.getElementById("main").style.display = "none";
+    const respuesta = await fetch('https://api.fabianjanuszewski.com/34165/user/', {
+        method: 'PUT',
+        body: JSON.stringify({
+            userId: user.userId,
+            userApellido: user.userApellido,
+            userDomicilio: user.userDomicilio,
+            userDni: user.userDni,
+
+        })
+    })
+    const data = await respuesta.json()
+    if (respuesta.ok) {
+
+        mostrarMensaje({
+            titulo: "¡Usuario actualizado con exito!",
+            comentario: `El usuario ${user.userId} ${user.userApellido} fue actualizado con exito`,
+            icono: "success"
+        })
+    } else {
+        mostrarMensaje({
+            titulo: "¡El usuario no fue actualizado!",
+            comentario: `respuesta del servidor: ${data.error.message}`,
+            icono: "error"
+        })
+    }
+
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("main").style.display = "";
+    return data
+}
+
+
+document.getElementById("traerUsuario").addEventListener("click", () => {
+    buscarUsuario(document.getElementById("inputNombre").value)
+});
+
+document.getElementById("actualizarUsuario").addEventListener("click", () => {
+    actualizarUsuario({
+        userId: document.getElementById("inputNombre").value,
+        userApellido: document.getElementById("inputApellido").value,
+        userDomicilio: document.getElementById("inputDomicilio").value,
+        userDni: document.getElementById("inputDni").value,
+
+    })
+});
+
+
+
+const deleteUsuario = async (user) => {
+    document.getElementById("loader").style.display = "";
+    document.getElementById("main").style.display = "none";
+    const respuesta = await fetch(`https://api.fabianjanuszewski.com/34165/user/${user}`, {
+        method: 'DELETE'
+    })
+    const data = await respuesta.json()
+    if (respuesta.ok) {
+        mostrarMensaje({
+            titulo: "¡Usuario eliminado con exito!",
+            comentario: `El usuario ${user} fue eliminado con exito`,
+            icono: "success"
+        })
+    } else {
+        mostrarMensaje({
+            titulo: "¡El usuario no fue eliminado!",
+            comentario: `respuesta del servidor: ${data.error.message}`,
+            icono: "error"
+        })
+    }
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("main").style.display = "";
+    return data
+}
+document.getElementById("deleteUsuario").addEventListener("click", () => {
+    deleteUsuario(document.getElementById("inputNombre").value)
+});
+
+
+function mostrarMensaje(mensaje) {
+    Swal.fire({
+        title: mensaje.titulo,
+        text: mensaje.comentario,
+        icon: mensaje.icono,
+        showCancelButton: false,
+        showConfirmButton: true
+    })
+}
+
+
+
+function standBy() {
+    document.querySelector("#img-lampara").src = "./assets/images/apagada.jpg";
+    document.querySelector("#background").classList.add("apagado");
+    document.querySelector("#background").classList.remove("prendido");
+    document.querySelector("#formulario").classList.add("oculto");
+}
+
+standBy()
 
 function prender() {
     document.querySelector("#img-lampara").src = "./assets/images/encendida.jpg";
     document.querySelector("#background").classList.add("prendido");
     document.querySelector("#background").classList.remove("apagado");
     document.querySelector("#formulario").classList.remove("oculto");
-    document.querySelector("#bienvenida").classList.add("ocultoTotal");
+    document.querySelector("#bienvenida").classList.add("oculto");
 }
 
 function apagar() {
@@ -157,30 +288,17 @@ function apagar() {
     document.querySelector("#background").classList.add("apagado");
     document.querySelector("#background").classList.remove("prendido");
     document.querySelector("#formulario").classList.add("oculto");
-    document.querySelector("#bienvenida").classList.remove("ocultoTotal");
+    document.querySelector("#bienvenida").classList.remove("oculto");
 }
 
-function activarModoOscuro() {
 
+function todoApagado() {
     if (document.getElementById("modoOscuro").checked) {
         document.body.className = "claro"
-        document.querySelector("#teclaLuz").classList.remove("ocultoTotal")
-        document.querySelector("#teclaLuz").classList.add("mostrarTotal")
         prender()
     } else {
         document.body.className = "oscuro"
-        document.querySelector("#teclaLuz").classList.add("ocultoTotal")
-        document.querySelector("#teclaLuz").classList.remove("mostrarTotal")
-
         apagar()
     }
-}
-
-function toLocalStorage(baseDatos) {
-    document.querySelector("#compraItems").classList.remove("ocultoTotal")
-
-    const guardarLocal = (clave, valor) => { localStorage.setItem(clave, valor) }
-    guardarLocal("Usuarios", JSON.stringify(baseDatos))
-
 }
 
