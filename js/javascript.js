@@ -102,6 +102,7 @@ function busquedaUsuario() {
             }
             else {
                 document.getElementById("btnForm").addEventListener('click', crearUsuario)
+
                 document.getElementById("respuestaIngreso").innerHTML = `Registro de nuevo usuario`
 
                 document.querySelector("#respuestaIngreso").classList.remove("ocultoTotal")
@@ -127,7 +128,7 @@ function crearUsuario() {
         nombre = document.getElementById("inputNombre").value,
         apellido = document.getElementById("inputApellido").value,
         domicilio = document.getElementById("inputDni").value,
-        dni = document.getElementById("inputDni").value,
+        dni = document.getElementById("inputNuevoDni").value,
         activo = true,
     )
     )
@@ -175,11 +176,11 @@ function activarModoOscuro() {
     }
 }
 
-function toLocalStorage(crearUsuario) {
+function toLocalStorage(baseDatos) {
     document.querySelector("#compraItems").classList.remove("ocultoTotal")
 
     const guardarLocal = (clave, valor) => { localStorage.setItem(clave, valor) }
-    guardarLocal("Usuarios", JSON.stringify(crearUsuario))
+    guardarLocal("Usuarios", JSON.stringify(baseDatos))
 
 }
 
